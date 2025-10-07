@@ -10,7 +10,11 @@ import { setupPlanCarousel } from './plans.js'
 document.addEventListener('DOMContentLoaded', () => {
     // --- Mobile Menu (Hamburger) Logic ---
     const hamburgerBtn = document.getElementById('hamburger-button');
+    const mobileMenu = document.getElementById('mobile-menu');
     hamburgerBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => setTimeout(() => mobileMenu.classList.add('hidden'), 300));
+    });
 
     // --- Dynamic "About Us" Modal Content ---
     populateAboutModal();

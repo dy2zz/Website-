@@ -44,31 +44,65 @@ export async function setupPlanCarousel() {
 
     function updateCarouselPositions(instant = false) {
         const n = plans.length;
+        // Check screen size once, outside the loop
+        const isMobile = window.innerWidth < 768;
+
+        // Use a single, clean loop
         cardElements.forEach((card, i) => {
-            if(instant) card.style.transition = 'none';
+            if (instant) card.style.transition = 'none';
+            
             const note = card.querySelector('.plan-note');
             const button = card.querySelector('.apply-btn');
             let offset = i - centerIndex;
             if (offset > n / 2) offset -= n;
             if (offset < -n / 2) offset += n;
             
-            let scale, opacity, z, blur, x;
-            const cardSpacing = 200;
-            
-            switch (offset) {
-                case 0: scale = 1.1; opacity = 1; z = 30; blur = 0; x = 0; note.style.opacity = '1'; button.style.pointerEvents = 'auto'; card.style.cursor = 'default'; break;
-                case 1: case -1: scale = 0.9; opacity = 0.7; z = 20; blur = 1; x = offset * cardSpacing; note.style.opacity = '0'; button.style.pointerEvents = 'none'; card.style.cursor = 'pointer'; break;
-                case 2: case -2: scale = 0.7; opacity = 0.4; z = 10; blur = 2; x = offset * cardSpacing; note.style.opacity = '0'; button.style.pointerEvents = 'none'; card.style.cursor = 'pointer'; break;
-                default: scale = 0.5; opacity = 0; z = 0; blur = 3; x = offset > 0 ? cardSpacing * 3 : -cardSpacing * 3; button.style.pointerEvents = 'none'; card.style.cursor = 'default'; break;
+            // --- Responsive Logic ---
+            if (isMobile) {
+                // --- Mobile Logic: Simple and focused ---
+                let transform, opacity, z;
+                
+                if (offset === 0) {
+                    transform = 'translateX(0px) scale(1)';
+                    opacity = 1;
+                    z = 30;
+                    note.style.opacity = '1';
+                    button.style.pointerEvents = 'auto';
+                    card.style.cursor = 'default';
+                } else {
+                    transform = `translateX(${offset * 100}%) scale(0.8)`;
+                    opacity = 0;
+                    z = 10;
+                    note.style.opacity = '0';
+                    button.style.pointerEvents = 'none';
+                    card.style.cursor = 'pointer';
+                }
+                
+                card.style.transform = transform;
+                card.style.opacity = opacity;
+                card.style.zIndex = z;
+                card.querySelector('.card-inner').style.filter = 'blur(0px)';
+
+            } else {
+                // --- Desktop Logic: Your original 3D effect ---
+                let scale, opacity, z, blur, x;
+                const cardSpacing = 200;
+                
+                switch (offset) {
+                    case 0: scale = 1.1; opacity = 1; z = 30; blur = 0; x = 0; note.style.opacity = '1'; button.style.pointerEvents = 'auto'; card.style.cursor = 'default'; break;
+                    case 1: case -1: scale = 0.9; opacity = 0.7; z = 20; blur = 1; x = offset * cardSpacing; note.style.opacity = '0'; button.style.pointerEvents = 'none'; card.style.cursor = 'pointer'; break;
+                    case 2: case -2: scale = 0.7; opacity = 0.4; z = 10; blur = 2; x = offset * cardSpacing; note.style.opacity = '0'; button.style.pointerEvents = 'none'; card.style.cursor = 'pointer'; break;
+                    default: scale = 0.5; opacity = 0; z = 0; blur = 3; x = offset > 0 ? cardSpacing * 3 : -cardSpacing * 3; button.style.pointerEvents = 'none'; card.style.cursor = 'default'; break;
+                }
+                
+                card.style.transform = `translateX(${x}px) scale(${scale})`;
+                card.style.zIndex = z;
+                card.style.opacity = opacity;
+                card.querySelector('.card-inner').style.filter = `blur(${blur}px)`;
             }
             
-            card.style.transform = `translateX(${x}px) scale(${scale})`;
-            card.style.zIndex = z;
-            card.style.opacity = opacity;
-            card.querySelector('.card-inner').style.filter = `blur(${blur}px)`;
-            
-            if(instant) {
-                card.offsetHeight; 
+            if (instant) {
+                card.offsetHeight;
                 card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             }
         });
@@ -86,11 +120,20 @@ export async function setupPlanCarousel() {
     };
     const stopAutoRotate = () => clearInterval(autoRotateInterval);
 
+    // Initial setup
     updateCarouselPositions(true);
+
+    // --- IMPROVEMENT: Add a resize listener ---
+    // This makes the carousel automatically switch between mobile and desktop views
+    // if the user resizes their browser window, without needing a refresh.
+    window.addEventListener('resize', () => updateCarouselPositions(true));
+
+    // --- Event Listeners ---
     document.getElementById('plan-next').onclick = () => changePlan(1);
     document.getElementById('plan-prev').onclick = () => changePlan(-1);
     document.getElementById('plan-next-mobile').onclick = () => changePlan(1);
     document.getElementById('plan-prev-mobile').onclick = () => changePlan(-1);
+    
     planCardsContainer.addEventListener('click', (e) => {
         const clickedCard = e.target.closest('.plan-card');
         if (clickedCard && clickedCard.style.cursor === 'pointer') {
