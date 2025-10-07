@@ -19,7 +19,7 @@ export async function setupPlanCarousel() {
 
     } catch (error) {
         console.error("Could not fetch plans:", error);
-        planCardsContainer.innerHTML = `<p class="text-white text-center">We couldn't load our plans at the moment. Please try again later.</p>`;
+        planCardsContainer.innerHTML = `<p class="text-white text-center overflow-hidden">We couldn't load our plans at the moment. Please try again later.</p>`;
         return; // Stop the function here
     }
     
