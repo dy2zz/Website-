@@ -1,0 +1,158 @@
+<!-- modals.html -->
+<style>
+  /* Optional: Ensures smooth scrolling if you add anchor links back later */
+  .modal-scroll-container {
+    scroll-behavior: smooth;
+  }
+
+  @media (min-height: 700px) {
+  #termsModalBox,
+  #privacyModalBox {
+    max-height: 70vh;
+    max-width: 80vh;
+  }
+}
+</style>
+
+<!-- Terms Modal -->
+<div id="termsModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50 p-2 opacity-0 transition-opacity duration-300">
+  <div id="termsModalBox" class="bg-gradient-to-b from-[#121418] to-[#014C6A] text-white rounded-2xl shadow-2xl w-[90%] max-w-[420px] flex flex-col max-h-[90vh] border-2 border-cyan-400/30 scale-95 opacity-0 transition-all duration-300">
+    <!-- Header -->
+    <div class="p-5 flex justify-between items-center flex-shrink-0 border-b border-cyan-400/20">
+      <div class="flex items-center gap-4">
+        <div class="p-2 bg-cyan-400/10 rounded-full">
+          <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold tracking-wider">Terms of Service</h2>
+      </div>
+      <button id="closeTerms" class="p-2 text-gray-400 hover:text-cyan-400 text-2xl leading-none font-bold transition-transform hover:scale-110">&times;</button>
+    </div>
+
+    <!-- Scrollable Content Wrapper -->
+    <div class="p-6 text-gray-300 text-sm leading-relaxed overflow-y-auto custom-scrollbar modal-scroll-container">
+      <!-- Main Text Content -->
+      <div class="space-y-4">
+        <p class="text-xs text-gray-500">Last updated: <span class="last-updated-date">{{LAST_UPDATED}}</span></p>
+
+        <h3 class="text-lg font-semibold text-white">Agreement to Terms</h3>
+        <p>Welcome to FiBear Network Technologies Corp. ("Fibear", "we", "us", "our"). These Terms of Service ("Terms") govern your use of the internet services, mobile application, and any related services (collectively, the "Service") provided by Fibear. By creating an account, accessing, or using our Service, you agree to be bound by these Terms. If you do not agree to these Terms, you may not use the Service.</p>
+
+        <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Description of Service</h3>
+        <p>Fibear provides high-speed internet access to residential and business customers. The specific details of your service plan, including but not limited to speed, data allowances, and price, are outlined in the plan you selected upon subscription. Service availability is not guaranteed and may be affected by factors outside of our control, such as network maintenance, geographic location, and equipment limitations.</p>
+
+        <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Payments, Billing, and Subscription</h3>
+        <p>You agree to pay all charges associated with your selected service plan in a timely manner. Billing cycles are typically monthly, and your first bill will be generated upon activation of your Service. Failure to pay your bill by the due date may result in a late fee, service suspension, or termination of your account. All payments are non-refundable, except as expressly stated in our policies or as required by law.</p>
+
+        <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">User Conduct and Acceptable Use</h3>
+        <p>You are responsible for all activity that occurs on your internet connection. You agree not to use the Service for any unlawful or prohibited activities, including but not limited to:</p>
+        <ul class="list-disc list-inside space-y-2 pl-4">
+          <li>Transmitting any material that is illegal, defamatory, abusive, or obscene.</li>
+          <li>Violating intellectual property rights, including copyrights and trademarks.</li>
+          <li>Distributing viruses, malware, or other harmful computer code.</li>
+          <li>Engaging in activities that disrupt or degrade the network or the experience of other users, such as network spamming or denial-of-service attacks.</li>
+          <li>Reselling the Service or providing access to third parties outside of your household without our express written consent.</li>
+        </ul>
+        <p>Violation of these acceptable use policies may result in immediate suspension or termination of your Service.</p>
+
+        <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Equipment</h3>
+        <p>Any equipment provided by Fibear (such as modems or routers) remains the property of Fibear. You agree to protect the equipment from damage and not to modify, tamper with, or attempt to repair it. Upon termination of your Service, you must return all Fibear-owned equipment in good working condition. Failure to do so may result in charges for the replacement cost of the equipment.</p>
+
+        <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Limitation of Liability</h3>
+        <p>The Service is provided on an "as is" and "as available" basis. Fibear does not warrant that the Service will be uninterrupted, error-free, or secure. In no event shall Fibear, its directors, employees, or partners be liable for any indirect, incidental, special, or consequential damages arising out of your use of or inability to use the Service.</p>
+
+        <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Termination</h3>
+        <p>You may request to cancel your Service at any time through the mobile application. Cancellation will take effect at the end of your current billing period. Fibear reserves the right to suspend or terminate your Service immediately and without notice for any violation of these Terms, including non-payment or breach of the acceptable use policy.</p>
+
+        <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Changes to Terms</h3>
+        <p>We may modify these Terms from time to time. We will notify you of any changes by posting the new Terms within the application and updating the "Last updated" date. Your continued use of the Service after such changes constitutes your acceptance of the new Terms.</p>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="p-4 bg-black/20 mt-auto border-t border-cyan-400/20 flex-shrink-0">
+      <button id="agreeTermsButton" class="w-full py-3 bg-cyan-400 text-black font-bold text-lg rounded-lg hover:bg-cyan-300 shadow-lg shadow-cyan-500/20 hover:scale-[1.02] transition-all">I Agree to the Terms</button>
+    </div>
+  </div>
+</div>
+
+<!-- Privacy Policy Modal -->
+<div id="privacyModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50 p-4 opacity-0 transition-opacity duration-300">
+  <div id="privacyModalBox" class="bg-gradient-to-b from-[#121418] to-[#014C6A] text-white rounded-2xl shadow-2xl max-w-xl w-full flex flex-col max-h-[90vh] border-2 border-cyan-400/30 scale-95 opacity-0 transition-all duration-300">
+    <!-- Header -->
+    <div class="p-5 flex justify-between items-center flex-shrink-0 border-b border-cyan-400/20">
+      <div class="flex items-center gap-4">
+        <div class="p-2 bg-cyan-400/10 rounded-full">
+            <svg class="w-6 h-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        </div>
+        <h2 class="text-xl font-bold tracking-wider">Privacy Policy</h2>
+      </div>
+      <button id="closePrivacy" class="p-2 text-gray-400 hover:text-cyan-400 text-2xl leading-none font-bold transition-transform hover:scale-110">&times;</button>
+    </div>
+    
+    <!-- Scrollable Content Wrapper -->
+    <div class="p-6 text-gray-300 text-sm leading-relaxed overflow-y-auto custom-scrollbar modal-scroll-container">
+       <!-- Main Text Content -->
+        <div class="space-y-4">
+            <p class="text-xs text-gray-500">Last updated: <span class="last-updated-date">{{LAST_UPDATED}}</span></p>
+            <p>FiBear Network Technologies Corp. ("Fibear", "we", "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application and internet services (collectively, the "Service").</p>
+
+            <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Information We Collect</h3>
+            <p>We collect information to provide and improve our Service. The types of information we may collect include:</p>
+
+            <h4 class="font-bold text-white">Personal Data:</h4>
+            <ul class="list-disc list-inside space-y-2 pl-4">
+              <li><strong>Account Information:</strong> When you register, we collect your name, email address, physical address for installation, mobile number, and payment information.</li>
+              <li><strong>Identity Information:</strong> To comply with regulations, we may collect government-issued identification for verification purposes.</li>
+            </ul>
+
+            <h4 class="font-bold text-white">Usage Data & Network Performance Data:</h4>
+            <ul class="list-disc list-inside space-y-2 pl-4">
+                <li><strong>Service Usage:</strong> We collect data about your internet usage, such as data consumption (amount of data used, not content), connection times, and device types connected to your network. We do not monitor the content of your traffic.</li>
+                <li><strong>Network Performance:</strong> We may collect technical information about your connection's performance, such as speed, latency, and packet loss, to troubleshoot and improve our network.</li>
+            </ul>
+
+            <h4 class="font-bold text-white">Mobile Application Data:</h4>
+            <ul class="list-disc list-inside space-y-2 pl-4">
+               <li><strong>Device Information:</strong> We may collect information about your mobile device, such as device model, operating system, and push notification tokens if you grant permission.</li>
+            </ul>
+
+            <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">How We Use Your Information</h3>
+            <p>Fibear uses the collected data for the following purposes:</p>
+            <ul class="list-disc list-inside space-y-2 pl-4">
+              <li>To set up, provide, maintain, and bill for the Service.</li>
+              <li>To communicate with you about your account, including service updates, billing reminders, and support responses.</li>
+              <li>To troubleshoot and resolve technical issues with your connection or our network.</li>
+              <li>To monitor and improve the performance, security, and reliability of our network.</li>
+              <li>To send you push notifications, if you have opted-in, regarding your account status or announcements.</li>
+              <li>To comply with legal obligations and law enforcement requests.</li>
+            </ul>
+
+            <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Disclosure of Your Information</h3>
+            <p>We do not sell your personal data. We may share your information with third parties only in the following situations:</p>
+            <ul class="list-disc list-inside space-y-2 pl-4">
+              <li><strong>Service Providers:</strong> We may share data with trusted third-party vendors who perform services on our behalf, such as payment processing, installation, and data analytics.</li>
+              <li><strong>Legal Requirements:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court order or subpoena).</li>
+            </ul>
+
+            <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Data Security</h3>
+            <p>We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal data you provide to us, please be aware that no security system is impenetrable, and we cannot guarantee the absolute security of your data.</p>
+
+            <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Your Data Protection Choices</h3>
+            <p>You have choices regarding the use of your information:</p>
+            <ul class="list-disc list-inside space-y-2 pl-4">
+               <li><strong>Account Information:</strong> You can review and update your account information at any time through the Fibear mobile application.</li>
+               <li><strong>Push Notifications:</strong> You can opt-out of receiving push notifications by changing the settings in the application or on your mobile device.</li>
+            </ul>
+  
+            <h3 class="text-lg font-semibold text-white pt-3 border-t border-gray-800/50">Contact Us</h3>
+            <p>If you have any questions or concerns about this Privacy Policy, please contact us through the support section of the Fibear application.</p>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="p-4 bg-black/20 mt-auto border-t border-cyan-400/20 flex-shrink-0">
+      <button id="closePrivacyButton" class="w-full py-3 bg-cyan-400 text-black font-bold text-lg rounded-lg hover:bg-cyan-300 shadow-lg shadow-cyan-500/20 hover:scale-[1.02] transition-all">Close</button>
+    </div>
+  </div>
+</div>
