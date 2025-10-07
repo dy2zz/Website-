@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fibear Client Portal</title>
+  <link rel="icon" type="image/png" href="../src/assets/icons/favicon.png">
   <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-gradient-to-b from-[#121418] to-[#014C6A] flex items-center justify-center min-h-screen relative">
@@ -16,16 +17,15 @@
       <button onclick="closeAlert()" class="mt-4 px-4 py-2 bg-[#56DEFC] text-black font-semibold rounded-lg hover:opacity-90 w-24">OK</button>
     </div>
   </div>
-  <!-- END MODALS -->
 
   <!-- Main Component -->
   <div class="w-full max-w-4xl flex rounded-md overflow-hidden shadow-lg mx-4">
     
     <!-- Left Side -->
     <div class="w-1/2 relative bg-black hidden md:block">
-      <img src="assets/girl.png" alt="Promo" class="h-full w-full object-cover opacity-90">
+      <img src="assets/background/girl.png" alt="Promo" class="h-full w-full object-cover opacity-90">
       <div class="absolute inset-0 flex flex-col justify-between p-6 text-white">
-        <img src="assets/logo.png" alt="Fibear Logo" class="h-13 w-16 object-contain">
+        <img src="assets/icons/logo.png" alt="Fibear Logo" class="h-13 w-16 object-contain">
         <div class="mb-4">
           <p class="text-2xl font-semibold leading-snug">“Your account.<br>In your pocket.”</p>
           <p class="text-sm mt-2 opacity-80">Up To 100 Mbps | Unlimited Internet</p>
@@ -50,22 +50,24 @@
           For the best experience, manage your account, pay bills, and get support through our official mobile app.
         </p>
         <div class="mb-8">
-          <img src="assets/qrcode.png" alt="QR Code to download the app" class="w-48 h-48 rounded-lg shadow-lg mx-auto border-4 border-cyan-700/50">
+          <img src="assets/icons/qrcode.png" alt="QR Code to download the app" class="w-48 h-48 rounded-lg shadow-lg mx-auto border-4 border-cyan-700/50">
           <p class="text-sm text-gray-400 mt-3">Scan the code with your phone</p>
         </div>
         <div class="w-full max-w-xs mx-auto space-y-4">
-          <!-- APK Download Button -->
           <a href="/path/to/your/fibear-app.apk" download class="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-lg bg-black text-white font-semibold hover:bg-gray-800 transition">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
             <span>Download APK</span>
           </a>
           
-          <p class="text-xs text-gray-400 text-center pt-2">No Account? <a href="register.html" class="underline text-[#56DEFC]">Register</a></p>
+          <p class="text-xs text-gray-400 text-center pt-2">No Account? <a href="register.html" data-transition-link class="underline text-[#56DEFC]">Register</a></p>
+
         </div>
       </div>
     </div>
   </div>
   
   <script src="js/login.js"></script>
+  <script src="js/transitions.js" defer></script> 
+
 </body>
 </html>

@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fibear</title>
+  <link rel="icon" type="image/png" href="../src/assets/icons/favicon.png">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/output.css">
 
 </head>
-<body class="bg-[#121418] text-white" style="background: url('assets/bg.gif') center center / cover no-repeat fixed;">
+<body class="bg-[#121418] text-white" style="background: url('assets/background/bg.gif') center center / cover no-repeat fixed;">
 
   <!-- ================================================================== -->
   <!-- 1. HEADER & NAVIGATION -->
@@ -19,7 +20,7 @@
     <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
         
         <div class="flex-shrink-0">
-            <a href="index.html"><img src="assets/logo.png" alt="Logo" class="h-12 w-auto"></a>
+            <a href="index.html"><img src="assets/icons/logo.png" alt="Logo" class="h-12 w-auto"></a>
         </div>
 
         <nav class="hidden md:block">
@@ -67,7 +68,7 @@
   <div class="bg-gradient-to-b from-[#121418] to-[#014C6A] text-white rounded-2xl shadow-2xl max-w-4xl w-full p-8 relative overflow-y-auto max-h-[90vh] transform scale-90 opacity-0 transition-all duration-300 ease-out border border-gray-700">
     <button id="closeAboutModal" class="absolute top-4 right-4 text-gray-300 hover:text-white text-3xl">&times;</button>
     <div class="flex justify-start mb-6">
-      <img src="assets/logo.png" alt="Fibear Logo" class="h-12 w-auto">
+      <img src="assets/icons/logo.png" alt="Fibear Logo" class="h-12 w-auto">
     </div>
     <div class="grid md:grid-cols-2 gap-8 items-start">
       <div class="space-y-8">
@@ -85,7 +86,7 @@
   <!-- ================================================================== -->
   <!-- 3. HERO SECTION -->
   <!-- ================================================================== -->
-  <section class="h-screen flex flex-col items-center justify-center text-center px-6 pt-24">
+  <section class="h-screen flex flex-col items-center justify-center text-center px-6 pt-24 overflow-hidden">
     <h1 class="text-5xl font-extrabold font-inter leading-snug mb-6" data-aos="fade-up">Experience Lighting-Fast Internet <br> You Can Trust Every Day</h1>
     <p class="max-w-2xl text-gray-300 font-inter text-lg mb-8" data-aos="fade-up" data-aos-delay="200">Enjoy seamless connectivity with our fast, budget-friendly broadband services for home and business.</p>
     <div data-aos="zoom-in" data-aos-delay="400">
@@ -96,9 +97,9 @@
   <!-- ================================================================== -->
   <!-- 4. ABOUT SECTION -->
   <!-- ================================================================== -->
-  <section id="about" class="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#121418] to-[#121418] py-20 px-6">
+  <section id="about" class="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#121418] to-[#121418] py-20 px-6 overflow-hidden">
     <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
-        <div class="w-full md:w-1/2 flex" data-aos="fade-right"><img src="assets/man.png" alt="About Us" class="w-full object-contain"></div>
+        <div class="w-full md:w-1/2 flex" data-aos="fade-right"><img src="assets/services/man.png" alt="About Us" class="w-full object-contain"></div>
         <div class="w-full md:w-1/2 space-y-6 flex flex-col" data-aos="fade-left">
             <h4 class="text-cyan-600 font-inter font-semibold">About Us</h4>
             <h2 class="text-cyan-700 md:text-5xl font-inter font-bold leading-snug">Fibear Network Technologies <br> Corporation <span class="text-[#235D6E] font-inter">(FNTC)</span></h2>
@@ -111,15 +112,15 @@
   <!-- ================================================================== -->
   <!-- 5. SERVICES SECTION -->
   <!-- ================================================================== -->
-  <section id="services" class="min-h-screen flex items-center justify-center text-center bg-gradient-to-b from-[#121418] to-[#014C6A] py-20 px-6">
+  <section id="services" class="min-h-screen flex items-center justify-center text-center bg-gradient-to-b from-[#121418] to-[#014C6A] py-20 px-6 overflow-hidden">
     <div class="container mx-auto px-6">
         <h2 class="text-5xl md:text-5xl font-bold mb-12 text-cyan-600" data-aos="fade-up">What <span class="text-[#235D6E] font-inter">We Offer</span></h2>
         <p class="text-gray-300 max-w-4xl mx-auto mb-14 font-inter leading-relaxed" data-aos="fade-up" data-aos-delay="100">We provide fast, reliable & stable internet with efficient repair teams and courteous customer relations.</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            <a href="#" class="group relative rounded-3xl overflow-hidden shadow-lg" data-title="Fiber Optic Installation" data-description="We offer high-speed fiber optic broadband connections for both residential and commercial properties." data-aos="fade-up" data-aos-delay="200"><img src="assets/fiber.png" alt="Fiber Optic" class="w-full h-64 object-cover"><div class="absolute inset-0 flex flex-col justify-end items-center pb-6 bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-white font-semibold text-lg">Fiber Optic Installation</h3></div></a>
-            <a href="#" class="group relative rounded-3xl overflow-hidden shadow-lg" data-title="Internet Packages" data-description="We offer a variety of affordable internet plans to meet the needs of different customers, from basic to advanced." data-aos="fade-up" data-aos-delay="300"><img src="assets/internet.png" alt="Internet Packages" class="w-full h-64 object-cover"><div class="absolute inset-0 flex flex-col justify-end items-center pb-6 bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-white font-semibold text-lg">Internet Packages</h3></div></a>
-            <a href="#" class="group relative rounded-3xl overflow-hidden shadow-lg" data-title="Technical Support" data-description="Our experienced professionals provide technical support to ensure our networks are always running smoothly." data-aos="fade-up" data-aos-delay="400"><img src="assets/support.png" alt="Tech Support" class="w-full h-64 object-cover"><div class="absolute inset-0 flex flex-col justify-end items-center pb-6 bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-white font-semibold text-lg">Technical Support</h3></div></a>
-            <a href="#" class="group relative rounded-3xl overflow-hidden shadow-lg" data-title="Customer Service" data-description="We are committed to excellent customer service, with a support team available 24/7 to answer questions." data-aos="fade-up" data-aos-delay="500"><img src="assets/customer.png" alt="Customer Service" class="w-full h-64 object-cover"><div class="absolute inset-0 flex flex-col justify-end items-center pb-6 bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-white font-semibold text-lg">Customer Service</h3></div></a>
+            <a href="#" class="group relative rounded-3xl overflow-hidden shadow-lg" data-title="Fiber Optic Installation" data-description="We offer high-speed fiber optic broadband connections for both residential and commercial properties." data-aos="fade-up" data-aos-delay="200"><img src="assets/services/fiber.png" alt="Fiber Optic" class="w-full h-64 object-cover"><div class="absolute inset-0 flex flex-col justify-end items-center pb-6 bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-white font-semibold text-lg">Fiber Optic Installation</h3></div></a>
+            <a href="#" class="group relative rounded-3xl overflow-hidden shadow-lg" data-title="Internet Packages" data-description="We offer a variety of affordable internet plans to meet the needs of different customers, from basic to advanced." data-aos="fade-up" data-aos-delay="300"><img src="assets/services/internet.png" alt="Internet Packages" class="w-full h-64 object-cover"><div class="absolute inset-0 flex flex-col justify-end items-center pb-6 bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-white font-semibold text-lg">Internet Packages</h3></div></a>
+            <a href="#" class="group relative rounded-3xl overflow-hidden shadow-lg" data-title="Technical Support" data-description="Our experienced professionals provide technical support to ensure our networks are always running smoothly." data-aos="fade-up" data-aos-delay="400"><img src="assets/services/support.png" alt="Tech Support" class="w-full h-64 object-cover"><div class="absolute inset-0 flex flex-col justify-end items-center pb-6 bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-white font-semibold text-lg">Technical Support</h3></div></a>
+            <a href="#" class="group relative rounded-3xl overflow-hidden shadow-lg" data-title="Customer Service" data-description="We are committed to excellent customer service, with a support team available 24/7 to answer questions." data-aos="fade-up" data-aos-delay="500"><img src="assets/services/customer.png" alt="Customer Service" class="w-full h-64 object-cover"><div class="absolute inset-0 flex flex-col justify-end items-center pb-6 bg-gradient-to-t from-black/80 to-transparent"><h3 class="text-white font-semibold text-lg">Customer Service</h3></div></a>
         </div>
     </div>
   </section>
@@ -132,7 +133,7 @@
         <h2 class="text-4xl md:text-5xl font-bold text-center mb-14 text-cyan-700" data-aos="fade-up">Internet Packages</h2>
         <p class="text-center text-lg mx-auto mb-14 text-gray-300 max-w-4xl" data-aos="fade-up" data-aos-delay="100">A variety of plans to suit your needs, backed by reliable service and customer support.</p>
         
-          <div id="plan-carousel" class="relative w-full flex flex-col items-center my-6" data-aos="fade-up" data-aos-delay="200">            
+          <div id="plan-carousel" class="relative w-full flex flex-col items-center my-6 opacity-0 transition-opacity duration-500" data-aos="fade-up" data-aos-delay="200">            
             <div class="flex items-center justify-center gap-4 w-full" style="min-height: 450px;">
                 <button id="plan-prev" class="hidden md:block bg-[#56DEFC] hover:bg-[#0ea9bf] text-[#1a3139] rounded-full p-3 shadow-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
                 <div id="plan-cards" class="flex items-center justify-center w-full"></div>
@@ -150,7 +151,7 @@
   <!-- ================================================================== -->
   <!-- 7. CONTACT US SECTION -->
   <!-- ================================================================== -->
-  <section id="contactus" class="bg-gradient-to-b from-black to-[#002534] py-20 px-6 lg:px-13">
+  <section id="contactus" class="bg-gradient-to-b from-black to-[#002534] py-20 px-6 lg:px-13 overflow-hidden">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-start" data-aos="fade-up">
         <div data-aos="fade-up" data-aos-delay="100">
             <p class="text-[#4dd0e1] text-sm mb-4 font-semibold">Contact Us</p>
@@ -195,11 +196,7 @@
             <div>
                 <h2 class="text-xl font-bold mb-3">Our Social Network:</h2>
                 <div class="flex gap-3 text-2xl">
-                    <a href="#" class="hover:text-[#4dd0e1]"><i class="fab fa-skype"></i></a>
-                    <a href="https://www.facebook.com/leoncio.amadoreiii/about" class="hover:text-[#4dd0e1]"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="hover:text-[#4dd0e1]"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/adriann_dgzmn/" class="hover:text-[#4dd0e1]"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.messenger.com/e2ee/t/1958463208265296" class="hover:text-[#4dd0e1]"><i class="fab fa-facebook-messenger"></i></a>
+                    <a href="https://www.facebook.com/fntc.kasiglahanvillage2023" class="hover:text-[#4dd0e1]"><i class="fab fa-facebook-f"></i></a>
                 </div>
             </div>
         </div>
@@ -223,6 +220,7 @@
 
   <!-- SCRIPTS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/transitions.js" defer></script> 
   <script type="module" src="js/index.js"></script>
 </body>
 </html>

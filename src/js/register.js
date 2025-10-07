@@ -7,25 +7,22 @@ import { API_BASE_URL } from './config.js';
 // 2. Helper Functions
 // ==================================================================
 
-/** Toggles password visibility in an input field. */
 function togglePassword(inputId, toggleId) {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
     toggle?.addEventListener("click", () => {
         const isPassword = input.type === "password";
         input.type = isPassword ? "text" : "password";
-        toggle.src = isPassword ? "../assets/show.png" : "../assets/hide.png";
+        toggle.src = isPassword ? "../assets/icons/show.png" : "../assets/icons/hide.png";
         toggle.alt = isPassword ? "Show Password" : "Hide Password";
     });
 }
 
-/** Displays a custom alert modal with a message. */
 function showAlert(message) {
     document.getElementById("alertMessage").textContent = message;
     openModal("customAlert");
 }
 
-/** Opens a modal by its ID with animation. */
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) return;
@@ -41,7 +38,6 @@ function openModal(modalId) {
     }, 10);
 }
 
-/** Closes a modal by its ID with animation. */
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) return;
@@ -63,10 +59,8 @@ function closeModal(modalId) {
 // 3. Main Application Logic
 // ==================================================================
 
-/** Initializes the entire application after the DOM is ready and modals are loaded. */
 function initializeApp() {
     
-    // --- Element Selections ---
     const registerView = document.getElementById('registerView');
     const otpView = document.getElementById('otpView');
     const userEmailDisplay = document.getElementById('userEmailDisplay');
@@ -76,13 +70,11 @@ function initializeApp() {
 
     let currentUserEmail = '';
 
-    // --- Dynamic Content Loading ---
     const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     document.querySelectorAll('.last-updated-date').forEach(el => {
         el.textContent = today;
     });
 
-    // --- UI State Changers ---
     const showOtpView = (email) => {
         currentUserEmail = email;
         userEmailDisplay.textContent = email;
@@ -96,11 +88,9 @@ function initializeApp() {
         openModal('recoveryCodeModal');
     };
     
-    // --- Event Listeners Setup ---
     togglePassword("createPassword", "toggleCreatePassword");
     togglePassword("confirmPassword", "toggleConfirmPassword");
 
-    // Modal Listeners
     document.getElementById('alertOkButton')?.addEventListener('click', () => closeModal('customAlert'));
     
     document.getElementById('termsLink')?.addEventListener('click', (event) => {
@@ -125,7 +115,6 @@ function initializeApp() {
         window.location.href = 'login.html';
     });
     
-    // --- Form Submission Logic ---
     registerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         
@@ -151,13 +140,22 @@ function initializeApp() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ displayName, email, password })
             });
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.message || 'Failed to register.');
             
-            showOtpView(email);
-
+            if (response.ok) {
+                showOtpView(email);
+            } else {
+                const data = await response.json().catch(() => ({ message: 'An unexpected error occurred.' }));
+                if (response.status === 409) {
+                    showAlert(data.message || 'An account with this email already exists.');
+                } else if (response.status >= 500) {
+                    showAlert('A server error occurred. Please try again later.');
+                } else {
+                    showAlert(data.message || 'Failed to register. Please try again.');
+                }
+            }
         } catch (error) {
-            showAlert(error.message);
+            console.error("Registration failed:", error);
+            showAlert('Could not connect to the server. Please check your internet connection and try again.');
         } finally {
             submitButton.disabled = false;
             submitButton.textContent = 'Create Account';
@@ -180,12 +178,20 @@ function initializeApp() {
                 body: JSON.stringify({ email: currentUserEmail, otp })
             });
             const data = await response.json();
-            if (!response.ok) throw new Error(data.message || 'Verification failed.');
-
-            showRecoveryCode(data.recoveryCode);
-
+            if (response.ok) {
+                showRecoveryCode(data.recoveryCode);
+            } else {
+                if (response.status === 400 || response.status === 401) {
+                    showAlert(data.message || 'The verification code is invalid or has expired.');
+                } else if (response.status >= 500) {
+                    showAlert('A server error occurred during verification. Please try again later.');
+                } else {
+                    showAlert(data.message || 'Verification failed. Please try again.');
+                }
+            }
         } catch (error) {
-            showAlert(error.message);
+            console.error("OTP verification failed:", error);
+            showAlert('Could not connect to the server. Please check your internet connection and try again.');
         } finally {
             submitButton.disabled = false;
             submitButton.textContent = 'Verify Account';
@@ -222,7 +228,6 @@ function initializeApp() {
 // 4. Entry Point
 // ==================================================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Load external modals first, then initialize the application logic.
     fetch('modals.html')
         .then(response => {
             if (!response.ok) throw new Error('Network error: Could not load modals.html');
@@ -230,12 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             document.getElementById('modals-container').innerHTML = data;
-            // Now that the main page and modals are loaded, run the app.
             initializeApp();
         })
         .catch(error => {
             console.error('Fatal Error: Could not initialize the page.', error);
-            // Optionally, display an error message to the user on the page itself
             document.body.innerHTML = '<p style="color: white; text-align: center; padding-top: 50px;">Sorry, the page could not be loaded. Please try again later.</p>';
         });
 });

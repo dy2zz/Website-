@@ -4,17 +4,15 @@
 
 html {
       scroll-behavior: smooth;  
-      scroll-padding-top: 80px; /* Adjust to your navbar height */
+      scroll-padding-top: 80px;
     }
     .font-inter {font-family: 'Inter', sans-serif;}
 
-    /* AOS Overrides */
     [data-aos] {
       opacity: 0;
       transition-property: opacity, transform;
     }
 
-    /* Glowing form effect */
     .glow-box {
       box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -25,7 +23,6 @@ html {
       box-shadow: 0 0 25px rgba(0, 242, 255, 0.7);
     }
 
-    /* Fade-up animation */
     @keyframes fadeUp {
       from {
         opacity: 0;
@@ -41,7 +38,6 @@ html {
       animation: fadeUp 0.8s ease-out forwards;
     }
     
-    /* Carousel card glow effect */
     .glow-card {
         box-shadow: 0 0 20px rgba(86, 222, 252, 0.6);
     }

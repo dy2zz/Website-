@@ -1,4 +1,5 @@
 import { API_BASE_URL } from './config.js';
+
 export async function setupPlanCarousel() {
     const planCardsContainer = document.getElementById('plan-cards');
     if (!planCardsContainer) return;
@@ -12,7 +13,6 @@ export async function setupPlanCarousel() {
         }
         plans = await response.json();
 
-        // If API returns an empty array, handle it
         if (plans.length === 0) {
              throw new Error("No plans found from API.");
         }
@@ -20,12 +20,16 @@ export async function setupPlanCarousel() {
     } catch (error) {
         console.error("Could not fetch plans:", error);
         planCardsContainer.innerHTML = `<p class="text-white text-center overflow-hidden">We couldn't load our plans at the moment. Please try again later.</p>`;
-        return; // Stop the function here
+        return; 
     }
     
     let centerIndex = 0;
     let cardElements = [];
     let autoRotateInterval;
+    
+    let touchStartX = 0;
+    let touchEndX = 0;
+
 
     planCardsContainer.style.position = 'relative';
     planCardsContainer.innerHTML = plans.map((plan, index) => `
@@ -44,10 +48,8 @@ export async function setupPlanCarousel() {
 
     function updateCarouselPositions(instant = false) {
         const n = plans.length;
-        // Check screen size once, outside the loop
         const isMobile = window.innerWidth < 768;
 
-        // Use a single, clean loop
         cardElements.forEach((card, i) => {
             if (instant) card.style.transition = 'none';
             
@@ -57,9 +59,7 @@ export async function setupPlanCarousel() {
             if (offset > n / 2) offset -= n;
             if (offset < -n / 2) offset += n;
             
-            // --- Responsive Logic ---
             if (isMobile) {
-                // --- Mobile Logic: Simple and focused ---
                 let transform, opacity, z;
                 
                 if (offset === 0) {
@@ -84,7 +84,6 @@ export async function setupPlanCarousel() {
                 card.querySelector('.card-inner').style.filter = 'blur(0px)';
 
             } else {
-                // --- Desktop Logic: Your original 3D effect ---
                 let scale, opacity, z, blur, x;
                 const cardSpacing = 200;
                 
@@ -120,15 +119,10 @@ export async function setupPlanCarousel() {
     };
     const stopAutoRotate = () => clearInterval(autoRotateInterval);
 
-    // Initial setup
     updateCarouselPositions(true);
 
-    // --- IMPROVEMENT: Add a resize listener ---
-    // This makes the carousel automatically switch between mobile and desktop views
-    // if the user resizes their browser window, without needing a refresh.
     window.addEventListener('resize', () => updateCarouselPositions(true));
 
-    // --- Event Listeners ---
     document.getElementById('plan-next').onclick = () => changePlan(1);
     document.getElementById('plan-prev').onclick = () => changePlan(-1);
     document.getElementById('plan-next-mobile').onclick = () => changePlan(1);
@@ -141,7 +135,31 @@ export async function setupPlanCarousel() {
             updateCarouselPositions();
         }
     });
+
     planCardsContainer.addEventListener('mouseenter', stopAutoRotate);
     planCardsContainer.addEventListener('mouseleave', startAutoRotate);
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const distance = touchEndX - touchStartX;
+
+        if (distance > swipeThreshold) {
+            changePlan(-1);
+        } else if (distance < -swipeThreshold) {
+            changePlan(1);
+        }
+    }
+
+    planCardsContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoRotate();
+    }, { passive: true });
+
+    planCardsContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoRotate();
+    });
+    
     startAutoRotate();
 }

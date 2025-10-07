@@ -3,23 +3,22 @@
 // ==================================================================
 import { COMPANY_NAME, MISSION_POINTS, VISION_POINTS, CEO_NAME } from './constants/constants.js';
 import { setupPlanCarousel } from './plans.js'
+import { showAlert } from './utils.js'; 
+import { API_BASE_URL } from './config.js'; 
 
 // ==================================================================
-// 2. DOMContentLoaded: Run scripts after page is loaded
+// 2. DOMContentLoaded
 // ==================================================================
+
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Mobile Menu (Hamburger) Logic ---
     const hamburgerBtn = document.getElementById('hamburger-button');
     const mobileMenu = document.getElementById('mobile-menu');
     hamburgerBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
     mobileMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => setTimeout(() => mobileMenu.classList.add('hidden'), 300));
     });
-
-    // --- Dynamic "About Us" Modal Content ---
     populateAboutModal();
 
-    // --- Plan Carousel Logic ---
     setupPlanCarousel();
 });
 
@@ -41,7 +40,6 @@ window.addEventListener("scroll", function() {
 // 4. "About Us" Modal Logic (Refactored)
 // ==================================================================
 
-// --- Helper function to create a standard modal section (Mission/Vision) ---
 function createModalSection(icon, title, subtitle, points) {
   return `
     <div class="flex items-start mb-3">
@@ -57,7 +55,6 @@ function createModalSection(icon, title, subtitle, points) {
   `;
 }
 
-// --- Helper function to create the "About" box ---
 function createAboutBox(icon, companyName, ceoName) {
   const shortName = companyName.split(' ')[0];
   return `
@@ -87,7 +84,6 @@ function createAboutBox(icon, companyName, ceoName) {
   `;
 }
 
-// --- Main function to populate the modal content ---
 function populateAboutModal() {
   const missionSection = document.getElementById('mission-section');
   const visionSection = document.getElementById('vision-section');
@@ -104,7 +100,6 @@ function populateAboutModal() {
   aboutSection.innerHTML = createAboutBox(aboutIcon, COMPANY_NAME, CEO_NAME);
 }
 
-// --- Modal open/close functionality ---
 const aboutModal = document.getElementById("modal");
 const openAboutBtn = document.getElementById("openModal");
 const closeAboutBtn = document.getElementById("closeAboutModal");
@@ -190,7 +185,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 
 
 // ==================================================================
-// 7. Contact Form Logic
+// 7. Contact Form Logic (MODIFIED)
 // ==================================================================
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById('form-status');
@@ -205,8 +200,7 @@ contactForm.addEventListener("submit", async (e) => {
   const message = document.getElementById("message").value.trim();
 
   if (!name || !email || !subject || !message) {
-    formStatus.textContent = 'Please fill out all fields.';
-    formStatus.className = 'text-red-400';
+    showAlert('Please fill out all fields.');
     return;
   }
 
@@ -215,12 +209,34 @@ contactForm.addEventListener("submit", async (e) => {
   formStatus.textContent = '';
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
-    formStatus.textContent = 'Message sent successfully!';
-    formStatus.className = 'text-green-400';
-    contactForm.reset();
+    const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, subject, message })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        formStatus.textContent = 'Message sent successfully!';
+        formStatus.className = 'text-green-400';
+        contactForm.reset();
+    } else {
+        const data = await response.json().catch(() => ({ message: 'Could not send the message.' }));
+        if (response.status >= 500) {
+            showAlert('A server error occurred. Please try again later.');
+            formStatus.textContent = 'Error: A problem occurred on our end.';
+        } else {
+            showAlert(data.message || 'An error occurred. Please check your input and try again.');
+            formStatus.textContent = `Error: ${data.message || 'Could not send message.'}`;
+        }
+        formStatus.className = 'text-red-400';
+    }
+
   } catch (error) {
-    formStatus.textContent = `Error: Could not send message.`;
+    console.error("Contact form submission failed:", error);
+    showAlert('Could not connect to the server. Please check your internet connection.');
+    formStatus.textContent = 'Error: Network connection failed.';
     formStatus.className = 'text-red-400';
   } finally {
     submitBtn.disabled = false;
