@@ -4,7 +4,7 @@ const getApiBaseUrl = () => {
     if (hostname === '127.0.0.1' || hostname === 'localhost') {
         return 'http://192.168.100.12:5000';
     } else {
-        return 'https://api.your-production-domain.com';
+        return 'https://nodefibear.onrender.com';
     }
 };
 
